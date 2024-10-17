@@ -1,3 +1,5 @@
 .vscode
 node_modules
-data/datasets
+data/datasets/img/*.png
+data/datasets/json/*.json
+data/datasets/samples.json
