@@ -1,3 +1,5 @@
+import { draw } from "../../common/draw.js";
+
 class SketchPad {
   constructor(container, size = 400) {
     this.canvas = document.createElement("canvas");
@@ -9,8 +11,6 @@ class SketchPad {
     `;
     container.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
-    this.paths = [];
-    this.isDrawing = false;
 
     const lineBreak = document.createElement("br");
     container.appendChild(lineBreak);
@@ -22,7 +22,14 @@ class SketchPad {
         `;
     container.appendChild(this.undoButton);
 
+    this.reset();
     this.#addEventListeners();
+  }
+
+  reset() {
+    this.paths = [];
+    this.isDrawing = false;
+    this.#redraw();
   }
 
   #addEventListeners() {
@@ -41,7 +48,7 @@ class SketchPad {
       }
     };
 
-    this.canvas.onmouseup = () => {
+    document.onmouseup = () => {
       this.isDrawing = false;
     };
 
@@ -55,7 +62,7 @@ class SketchPad {
       this.canvas.onmousemove(loc);
     };
 
-    this.canvas.ontouchend = () => {
+    document.ontouchend = () => {
       this.canvas.onmouseup();
     };
 
@@ -84,3 +91,5 @@ class SketchPad {
     ];
   }
 }
+
+export default SketchPad;
